@@ -1,19 +1,19 @@
 <?php
 $koneksi = new mysqli("localhost", "root", "", "klinik_harmoni");
 
-// Cek koneksi
+
 if ($koneksi->connect_error) {
   die("Koneksi gagal: " . $koneksi->connect_error);
 }
 
-// Ambil ID dokter dari URL
+
 if (!isset($_GET['id'])) {
   die("ID dokter tidak ditemukan.");
 }
 
 $id = intval($_GET['id']);
 
-// Jika form disubmit
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
   $nama_dokter = $_POST['nama_dokter'];
   $no_ruangan = $_POST['no_ruangan'];
@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   exit;
 }
 
-// Ambil data pasien
+
 $query = "SELECT * FROM pasien WHERE id = ?";
 $stmt = $koneksi->prepare($query);
 $stmt->bind_param("i", $id);

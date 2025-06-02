@@ -14,6 +14,12 @@ if ($result_dokter && $result_dokter->num_rows > 0) {
   }
 }
 
+session_start();
+if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
+    header('Location: login.php');
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -29,26 +35,24 @@ if ($result_dokter && $result_dokter->num_rows > 0) {
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark mb-4" style="background-color: #007733;">
-    <div class="container">
-      <a class="navbar-brand" href="#">Halaman Admin</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="admin.php">Data Dokter</a>
-          <a class="nav-link" href="datapasien.php">Data Pasien</a>
-          <a class="nav-link" href="#">Pricing</a>
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </div>
-        <form action="login.php" method="post" class="d-flex ms-auto">
-          <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+ <nav class="navbar navbar-expand-lg navbar-dark mb-4" style="background-color: #007733;">
+  <div class="container">
+    <a class="navbar-brand">Halaman Admin</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="admin.php">Data Dokter</a>
+        <a class="nav-link" href="datapasien.php">Data Pasien</a>
+        <a class="nav-link" href="dashboard.php">Dashboard</a>
+        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
       </div>
     </div>
-  </nav>
-
+  </div> 
+</nav>
   <div class="container">
 
     <h1>Daftar Dokter</h1>
@@ -64,11 +68,11 @@ if ($result_dokter && $result_dokter->num_rows > 0) {
       </thead>
       <tbody>
         <?php
-        $foto_dokter = [
-          'img/foto_dokter1.png',
-          'img/foto_dokter3.png',
-          'img/foto_dokter2.png',
-        ];
+          $foto_dokter = [
+            'img/foto_dokter1.png',
+            'img/foto_dokter3.png',
+            'img/foto_dokter2.png',
+          ];
         ?>
         <?php foreach ($dokter as $i => $mhs): ?>
           <tr>
@@ -77,7 +81,7 @@ if ($result_dokter && $result_dokter->num_rows > 0) {
             <td><?= htmlspecialchars($mhs['no_ruangan']) ?></td>
             <td>
               <?php
-              $foto = isset($foto_dokter[$i]) ? $foto_dokter[$i] : 'img/default.png';
+                $foto = isset($foto_dokter[$i]) ? $foto_dokter[$i] : 'img/default.png';
               ?>
               <img src="<?= $foto ?>" width="60" alt="Foto Dokter <?= htmlspecialchars($mhs['nama_dokter']) ?>">
             </td>
@@ -93,10 +97,7 @@ if ($result_dokter && $result_dokter->num_rows > 0) {
         <?php endforeach; ?>
       </tbody>
     </table>
-
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
-
 </html>

@@ -44,7 +44,7 @@ if ($result) {
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="admin.php">Data Dokter</a>
                     <a class="nav-link" href="datapasien.php">Data Pasien</a>
-                    <a class="nav-link" href="#">Pricing</a>
+                     <a class="nav-link" href="dashboard.php">Dashboard</a>
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </div>
             </div>

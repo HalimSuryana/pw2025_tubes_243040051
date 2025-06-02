@@ -8,6 +8,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
+    $query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username' AND password='$password'");
+    $user = mysqli_fetch_assoc($query);
+
+    if ($user) {
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['role'] = $user['role'];
+
+           if ($user['role'] == 'admin') {
+            header('Location: admin.php');
+        } else if ($user['role'] == 'user') {
+            header('Location: user.php');
+        } else {
+            echo "Role tidak dikenali!";
+        }
+        exit();
+    } else 
     $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
 
     if (mysqli_num_rows($result) === 1) {
