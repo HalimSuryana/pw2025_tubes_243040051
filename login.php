@@ -8,43 +8,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username' AND password='$password'");
-    $user = mysqli_fetch_assoc($query);
-
-    if ($user) {
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['role'] = $user['role'];
-
-           if ($user['role'] == 'admin') {
-            header('Location: admin.php');
-        } else if ($user['role'] == 'user') {
-            header('Location: user.php');
-        } else {
-            echo "Role tidak dikenali!";
-        }
-        exit();
-    } else 
+    // Cek username di database
     $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
 
     if (mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
 
-        if (isset($_SESSION['username']) && $_SESSION['username'] == $username) {
-            $error = "Akun ini sudah login di sesi lain.";
-        } else {
-           
             if (password_verify($password, $row['password'])) {
                 $_SESSION['username'] = $username;
-                header("Location: dashboard.php");
+                $_SESSION['role'] = $row['role']; 
+                header("Location: index.php");
                 exit;
             } else {
                 $error = "Password salah.";
             }
         }
-    } else {
-        $error = "Username tidak ditemukan.";
     }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -53,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-  <title>Klinik Harmoini</title>
+  <title>Klinik Harmoni</title>
   <style>
     * {
       box-sizing: border-box;
@@ -62,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-image: url('img/bg_baru.png');
-      /* background-size: cover; */
       background-position: center;
       margin: 0;
       padding: 0;
@@ -173,8 +152,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <div class="login-container">
     <div class="login-box">
-      <img src="img/logo klinik.png" alt="">
-      <h2></h2>
+      <img src="img/logo klinik.png" alt="Logo Klinik Harmoni">
+      <h2>Login Klinik Harmoni</h2>
       <form method="post">
         <label for="username">Username</label>
         <input type="text" name="username" id="username" required>

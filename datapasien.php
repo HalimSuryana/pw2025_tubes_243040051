@@ -44,7 +44,7 @@ if ($result) {
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="admin.php">Data Dokter</a>
                     <a class="nav-link" href="datapasien.php">Data Pasien</a>
-                     <a class="nav-link" href="dashboard.php">Dashboard</a>
+                     <a class="nav-link" href="index.php">Dashboard</a>
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </div>
             </div>
@@ -79,10 +79,10 @@ if ($result) {
                         <td><?= htmlspecialchars($mhs['waktu_daftar']) ?></td>
                         <td><?= htmlspecialchars($mhs['nama_dokter']) ?></td>
                         <td>
-                            <a href="edit.php" class="btn btn-warning btn-sm" onclick="return confirm('Apakah Anda yakin ingin mengedit data pasien ini?')">
-                                <i class="bi bi-pencil-square"></i>
+                            <a href="editpasien.php?id=<?= $mhs['id_pasien'] ?>" class="btn btn-warning btn-sm" onclick="return confirm('Apakah Anda yakin ingin mengubah data Pasien ini?')">
+                <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a href="hapus.php" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data pasien ini?')">
+                            <a href="hapusdata.php" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data pasien ini?')">
                                 <i class="bi bi-trash-fill"></i>
                             </a>
                         </td>

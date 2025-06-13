@@ -7,7 +7,7 @@ if (isset($_POST["register"])) {
     if (register($_POST) > 0) {
         echo "<script>
                     alert('User name berhasil login!');
-                    document.location.href = 'dashboard.php';
+                    document.location.href = 'index.php';
                     </script>";
     } else {
         echo mysqli_error($conn);
