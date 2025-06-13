@@ -1,29 +1,29 @@
 <?php
 session_start();
-require 'function.php'; 
+require 'function.php';
 
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+  $username = $_POST['username'];
+  $password = $_POST['password'];
 
-    // Cek username di database
-    $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
+  // Cek username di database
+  $result = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
 
-    if (mysqli_num_rows($result) === 1) {
-        $row = mysqli_fetch_assoc($result);
+  if (mysqli_num_rows($result) === 1) {
+    $row = mysqli_fetch_assoc($result);
 
-            if (password_verify($password, $row['password'])) {
-                $_SESSION['username'] = $username;
-                $_SESSION['role'] = $row['role']; 
-                header("Location: index.php");
-                exit;
-            } else {
-                $error = "Password salah.";
-            }
-        }
+    if (password_verify($password, $row['password'])) {
+      $_SESSION['username'] = $username;
+      $_SESSION['role'] = $row['role'];
+      header("Location: index.php");
+      exit;
+    } else {
+      $error = "Password salah.";
     }
+  }
+}
 
 ?>
 <!DOCTYPE html>
@@ -168,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p style="margin-top: 15px;">Belum punya akun? <a href="register.php">Daftar di sini</a></p>
       </form>
       <?php if ($error): ?>
-      <p class="error"><?= $error ?></p>
+        <p class="error"><?= $error ?></p>
       <?php endif; ?>
     </div>
   </div>

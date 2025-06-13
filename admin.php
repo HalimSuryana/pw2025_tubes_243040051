@@ -65,11 +65,11 @@ if ($result_dokter && $result_dokter->num_rows > 0) {
       </thead>
       <tbody>
         <?php
-          $foto_dokter = [
-            'img/foto_dokter1.png',
-            'img/foto_dokter3.png',
-            'img/foto_dokter2.png',
-          ];
+        $foto_dokter = [
+          'img/foto_dokter1.png',
+          'img/foto_dokter3.png',
+          'img/foto_dokter2.png',
+        ];
         ?>
         <?php foreach ($dokter as $i => $mhs): ?>
           <tr>
@@ -78,7 +78,7 @@ if ($result_dokter && $result_dokter->num_rows > 0) {
             <td><?= htmlspecialchars($mhs['no_ruangan']) ?></td>
             <td>
               <?php
-                $foto = isset($foto_dokter[$i]) ? $foto_dokter[$i] : 'img/default.png';
+              $foto = isset($foto_dokter[$i]) ? $foto_dokter[$i] : 'img/default.png';
               ?>
               <img src="<?= $foto ?>" width="60" alt="Foto Dokter <?= htmlspecialchars($mhs['nama_dokter']) ?>">
             </td>
@@ -98,4 +98,5 @@ if ($result_dokter && $result_dokter->num_rows > 0) {
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
